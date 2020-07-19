@@ -6,6 +6,14 @@ export default class MonsterContainer extends Component {
     monsters: [],
     search: "",
   };
+
+  handleDelete = (id) => {
+    const { monsters } = this.state;
+    console.log(id);
+    this.setState({
+      monsters: monsters.filter((monster) => monster.id !== id),
+    });
+  };
   componentDidMount() {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
@@ -28,7 +36,11 @@ export default class MonsterContainer extends Component {
         <input name={"search"} onChange={this.handleChange}></input>
         <div className="grid-container">
           {filteredMonsters.map((monster) => (
-            <MonsterCard key={monster.id} monster={monster} />
+            <MonsterCard
+              key={monster.id}
+              monster={monster}
+              handleDelete={this.handleDelete}
+            />
           ))}
         </div>
       </div>
