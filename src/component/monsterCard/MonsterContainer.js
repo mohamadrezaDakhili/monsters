@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./monster-card.css";
 import Form from "../Form/Form";
 import MonsterTable from "../MonsterTable/MonsterTable";
+import Search from "../Search/Search.jsx";
 
 export default class MonsterContainer extends Component {
   state = {
@@ -37,7 +38,7 @@ export default class MonsterContainer extends Component {
 
     return (
       <div className="">
-        <input name={"search"} onChange={this.handleChange}></input>
+        <Search handleChange={this.handleChange} search={search} />
         <Form handleAdd={this.handleAdd} />
         <MonsterTable
           filteredMonsters={filteredMonsters}
