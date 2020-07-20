@@ -14,7 +14,6 @@ export default class MonsterCard extends Component {
           }
           alt={""}
         ></img>
-        <button onClick={() => handleDelete(monster.id)}>pack me!</button>
       </div>
     );
   }
