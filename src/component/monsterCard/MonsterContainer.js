@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import MonsterCard from "./MonsterCard";
 import "./monster-card.css";
-import Delete from "../Delete/Delete";
 import Form from "../Form/Form";
+import MonsterTable from "../MonsterTable/MonsterTable";
+
 export default class MonsterContainer extends Component {
   state = {
     monsters: [],
@@ -39,14 +39,10 @@ export default class MonsterContainer extends Component {
       <div className="">
         <input name={"search"} onChange={this.handleChange}></input>
         <Form handleAdd={this.handleAdd} />
-        <div className="grid-container">
-          {filteredMonsters.map((monster) => (
-            <div key={monster.id}>
-              <MonsterCard monster={monster} />
-              <Delete handleDelete={() => this.handleDelete(monster.id)} />
-            </div>
-          ))}
-        </div>
+        <MonsterTable
+          filteredMonsters={filteredMonsters}
+          handleDelete={this.handleDelete}
+        />
       </div>
     );
   }
