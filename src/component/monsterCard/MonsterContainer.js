@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MonsterCard from "./MonsterCard";
 import "./monster-card.css";
 import Delete from "../Delete/Delete";
+import Form from "../Form/Form";
 export default class MonsterContainer extends Component {
   state = {
     monsters: [],
@@ -25,6 +26,9 @@ export default class MonsterContainer extends Component {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+  handleAdd = (obj) => {
+    this.setState({ monsters: [...this.state.monsters, obj] });
+  };
   render() {
     const { monsters, search } = this.state;
     let filteredMonsters = monsters.filter((item) =>
@@ -34,10 +38,11 @@ export default class MonsterContainer extends Component {
     return (
       <div className="">
         <input name={"search"} onChange={this.handleChange}></input>
+        <Form handleAdd={this.handleAdd} />
         <div className="grid-container">
           {filteredMonsters.map((monster) => (
-            <div>
-              <MonsterCard key={monster.id} monster={monster} />
+            <div key={monster.id}>
+              <MonsterCard monster={monster} />
               <Delete handleDelete={() => this.handleDelete(monster.id)} />
             </div>
           ))}
