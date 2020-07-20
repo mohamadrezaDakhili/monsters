@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { createUsers } from "../../api/services/send-users";
 
 class Form extends Component {
   state = {
@@ -13,10 +14,16 @@ class Form extends Component {
     this.setState({ name: "", email: "" });
   };
   handleSubmit = (event) => {
-    const { name, email } = this.state;
     event.preventDefault();
-    const newMonster = { name, email };
-    this.props.handleAdd(newMonster);
+    const { name, email } = this.state;
+    const user = { name, email };
+    createUsers(user)
+      .then((res) => {
+        this.props.handleAdd(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   render() {
     const { name, email } = this.state;

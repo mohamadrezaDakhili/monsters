@@ -16,6 +16,7 @@ export default class MonsterContainer extends Component {
       monsters: monsters.filter((monster) => monster.id !== id),
     });
   };
+
   componentDidMount() {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
@@ -23,13 +24,16 @@ export default class MonsterContainer extends Component {
         this.setState({ monsters: data });
       });
   }
+
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
   handleAdd = (obj) => {
-    this.setState({ monsters: [...this.state.monsters, obj] });
+    this.setState({ monsters: [obj, ...this.state.monsters] });
   };
+
   render() {
     const { monsters, search } = this.state;
     let filteredMonsters = monsters.filter((item) =>
@@ -39,7 +43,7 @@ export default class MonsterContainer extends Component {
     return (
       <div className="">
         <Search handleChange={this.handleChange} search={search} />
-        <Form handleAdd={this.handleAdd} />
+        <Form handleAdd={this.handleAdd} monsters={this.state.monsters} />
         <MonsterTable
           filteredMonsters={filteredMonsters}
           handleDelete={this.handleDelete}
