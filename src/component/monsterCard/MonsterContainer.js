@@ -1,54 +1,44 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import "./monster-card.css";
 import Form from "../Form/Form";
 import MonsterTable from "../MonsterTable/MonsterTable";
 import Search from "../Search/Search.jsx";
 
-export default class MonsterContainer extends Component {
-  state = {
-    monsters: [],
-    search: "",
+export default function MonsterContainer() {
+  const [monsters, setMonsters] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const handleDelete = (id) => {
+    setMonsters(monsters.filter((monster) => monster.id !== id));
   };
 
-  handleDelete = (id) => {
-    const { monsters } = this.state;
-    this.setState({
-      monsters: monsters.filter((monster) => monster.id !== id),
-    });
-  };
-
-  componentDidMount() {
+  const getData = () => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ monsters: data });
+        setMonsters(data);
       });
-  }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
 
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setSearch(value);
   };
 
-  handleAdd = (obj) => {
-    this.setState({ monsters: [obj, ...this.state.monsters] });
-  };
+  let filteredMonsters = monsters.filter((item) =>
+    item.name.toLowerCase().startsWith(search.toLowerCase())
+  );
 
-  render() {
-    const { monsters, search } = this.state;
-    let filteredMonsters = monsters.filter((item) =>
-      item.name.toLowerCase().startsWith(search.toLowerCase())
-    );
-
-    return (
-      <div className="">
-        <Search handleChange={this.handleChange} search={search} />
-        {/* <Form handleAdd={this.handleAdd} monsters={this.state.monsters} /> */}
-        <MonsterTable
-          filteredMonsters={filteredMonsters}
-          handleDelete={this.handleDelete}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="">
+      <Search handleChange={handleChange} search={search} />
+      <MonsterTable
+        filteredMonsters={filteredMonsters}
+        handleDelete={handleDelete}
+      />
+    </div>
+  );
 }

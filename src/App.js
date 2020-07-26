@@ -28,10 +28,10 @@ class App extends React.Component {
           <Route exact path="/monsters">
             <MonsterArchive />
           </Route>
-          <Route path="/"></Route>
           <Route path="/monsters/:id">
             <MonsterSingle />
           </Route>
+          <Route path="/"></Route>
         </Switch>
       </Router>
     );

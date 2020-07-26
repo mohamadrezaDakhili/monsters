@@ -2,21 +2,21 @@ import React, { Component } from "react";
 import MonsterCard from "../monsterCard/MonsterCard";
 import Delete from "../Delete/Delete";
 import "./monsterTable.scss";
+import { Link } from "react-router-dom";
 
-export class MonsterTable extends Component {
-  render() {
-    const { filteredMonsters, handleDelete } = this.props;
-    return (
-      <div className="grid-container">
-        {filteredMonsters.map((monster, index) => (
-          <div key={index}>
+export function MonsterTable({ filteredMonsters, handleDelete }) {
+  return (
+    <div className="grid-container">
+      {filteredMonsters.map((monster, index) => (
+        <div key={index}>
+          <Link to={`/monsters/${monster.id}`}>
             <MonsterCard monster={{ ...monster, id: index }} />
-            <Delete handleDelete={() => handleDelete(index)} />
-          </div>
-        ))}
-      </div>
-    );
-  }
+          </Link>
+          <Delete handleDelete={() => handleDelete(index)} />
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default MonsterTable;
