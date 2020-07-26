@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MonsterCard from "../monsterCard/MonsterCard ";
+import MonsterCard from "../monsterCard/MonsterCard";
 import Delete from "../Delete/Delete";
 import "./monsterTable.scss";
 

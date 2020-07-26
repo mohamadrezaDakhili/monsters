@@ -43,7 +43,7 @@ export default class MonsterContainer extends Component {
     return (
       <div className="">
         <Search handleChange={this.handleChange} search={search} />
-        <Form handleAdd={this.handleAdd} monsters={this.state.monsters} />
+        {/* <Form handleAdd={this.handleAdd} monsters={this.state.monsters} /> */}
         <MonsterTable
           filteredMonsters={filteredMonsters}
           handleDelete={this.handleDelete}
